@@ -1,0 +1,25 @@
+<h2>Your Things</h2>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}"></div>
+    {% endfor %}
+{% endif %}
+ <form  method="POST" action="/">
+    {% csrf_token %}
+    {{ form.title }}
+    <input type="submit" name="Create task">
+ </form>
+
+
+{% for task in taskk %}
+    <div>
+        <a href="{% url 'update_task' task.id %}">Update</a>
+        <a href="{% url 'delete_task' task.id %}">Delete</a>
+
+        {% if task.complete == TRUE %}
+        <strike>{{ task }}</strike>
+        {% else %}
+        <span>{{task}}</span>
+        {% endif %}
+    </div>
+{% endfor %}
