@@ -1,27 +1,109 @@
-<header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-        <div class="container">
-          <h2><a class="navbar-brand mr-4" href="{% url 'list' %}">Your Things</a> </h2>
-             <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarToggle">
-            <!-- Navbar Right Side -->
-            <div class="navbar-nav">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head>
+  <title>ToDo App</title>
+</head>
+<style>
+
+  body{
+    background-color: #638CB8;
+  }
+
+  input{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+
+  input::placeholder {
+    color: #d3d3d3;
+  }
+
+  .submit{
+    background-color: #6BA3E8;
+  }
+
+  .center-column{
+    width:600px;
+    margin:20px auto;
+    padding:20px;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+  }
+
+  .item-row{
+    background-color: #906abd;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    box-shadow: 0px -1px 10px -4px rgba(0,0,0,0.75);
+  }
+
+  .btn-danger{
+    background-color: #ffae19;
+    border-color: #e59400;
+  }
+
+.title{
+    color:#6BA3E8;
+    font-size: 30px;
+    margin-left:center;
+}
+.navbar{
+        list-style: none;
+        padding-left: 400px;
+         padding-right: 20px;
+
+    }
+
+</style>
+
+
+<div class="center-column">
+     <div class="navbar-nav">
+      <div class="title">
+         <h2><a class="navbar-brand
+         margin-top:0px; mr-4" href="{% url 'list' %}">Your Things</a> </h2>
+       </div>
+       <div class="navbar">
               {% if user.is_authenticated %}
-                <a class="nav-item nav-link" href="{% url 'profile' %}">profile</a>
-                <a class="nav-item nav-link" href="{% url 'logout' %}">logout</a>
+                <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
               {% else %}
-                <a class="nav-item nav-link" href="{% url 'login' %}">login</a>
-                <a class="nav-item nav-link" href="{% url 'register' %}">register</a>
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
               {% endif %}
-            </div>
-          </div>
         </div>
-      </nav>
-    </header>
+      </div>
 
 
- <main role="main" class="container">
+  <form method="POST" action="/">
+    {% csrf_token %}
+    {{form.title}}
+    <input class="btn btn-info" type="submit" name="Create Task">
+  </form>
+
+
+<div class="todo-list">
+  {% for task in taskk %}
+    <div class="item-row">
+      <a class="btn btn-sm btn-info" href="{% url 'update_task' task.id %}">Update</a>
+      <a class="btn btn-sm btn-danger" href="{% url 'delete_task' task.id %}">Delete</a>
+
+      {% if task.complete == True %}
+        <strike>{{task}}</strike>
+      {% else %}
+      <span>{{task}}</span>
+      {% endif %}
+    </div>
+  {% endfor %}
+  </div>
+
+<!-- message popoup -->
+  <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
           {% if messages %}
@@ -31,57 +113,4 @@
               </div>
             {% endfor %}
           {% endif %}
-
-
-
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}"></div>
-    {% endfor %}
-{% endif %}
- <form  method="POST" action="/">
-    {% csrf_token %}
-    {{ form.title }}
-    <input type="submit" name="Create task">
- </form>
-
-    {% for task in taskk %}
-        <div>
-             <a href="{% url 'update_task' task.id %}">Update</a>
-            <a href="{% url 'delete_task' task.id %}">Delete</a>
-
-             {% if task.complete == TRUE %}
-                <striker>{{ task }}</striker>
-            {% else %}
-                <span>{{task}}</span>
-            {% endif %}
-         </div>
-    {% endfor %}
-    </div>
-      </div>
-    </main>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

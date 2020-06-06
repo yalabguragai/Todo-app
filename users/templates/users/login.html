@@ -1,17 +1,82 @@
-<div class="content-section">
+<style >
+   body {
+    font-family: sans-serif;
+     background: #638CB8;
+}
+
+.box {
+    width: 600px;
+    margin: :20px auto;
+    padding: 20px;
+    background-color:white;
+     border-radius: 3px;
+    box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75)
+}
+
+.box input[type="text"],
+.box input[type="password"] {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 10px 10px;
+    width: 250px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s
+    ;
+}
+
+.box h1 {
+    color: blue;
+    text-transform: uppercase;
+    font-weight: 500
+}
+
+.box input[type="text"]:focus,
+.box input[type="password"]:focus {
+    width: 300px;
+    border-color: #2ecc71
+}
+
+.box input[type="submit"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    color: green;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer
+}
+
+.box input[type="submit"]:hover {
+    background: #2ecc71
+
+}
+
+.forgot {
+    text-decoration: underline
+}
+
+</style>
+
+<div class="container">
+    <div class="row">
         <form method="POST">
             {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Login</legend>
-                {{ form }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">LogIn</button>
-            </div>
+                <form class="box">
+                    <h1>Login</h1>
+                    <p class="text-muted"> Please enter your Username and password!</p> {{ form }}
+
+                    <input type="submit" value="Login" >
+                    <p class="text-muted"> Donot Have An Account? <a class="ml-2" href="{% url 'register' %} ">Sign Up</a></p>
+                </form>
         </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Donot Have An Account? <a class="ml-2" href="{% url 'register' %} ">Sign Up</a>
-            </small>
-        </div>
-    </div>
+     </div>
+</div>
